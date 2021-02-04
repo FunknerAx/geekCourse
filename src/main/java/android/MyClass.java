@@ -5,13 +5,19 @@ public class MyClass {
     public static void main(String[] Arg){
 
         System.out.println( calculate(1,1,4,2) );
+
         System.out.println( isBetween(10,5) );
         System.out.println( isBetween(10,11) );
+
         isPositiveNumber(10);
         isPositiveNumber(-10);
+
         System.out.println( isNegativeNumber(10) );
         System.out.println( isNegativeNumber(-10) );
+
         sayHi("Тимофей");
+
+        getYear(5);
     }
 
     //2
@@ -67,8 +73,19 @@ public class MyClass {
     }
 
     //8
-    public static void getYear(int year){
+    public static void getYear(double year){
+        String result = "Не високосный год";
 
+        if( year%4 == 0 ) {
+            result = "Високосный год";
+            if (year % 100 == 0) {
+                if (!(year % 400 == 0)) {
+                    result = "Не високосный год";
+                }
+            }
+        }
+
+        System.out.println(result);
     }
 
 }
