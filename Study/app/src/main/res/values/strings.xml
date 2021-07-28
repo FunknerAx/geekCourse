@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">Study</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="label1">Покупки</string>
+    <string name="description1">Описание один</string>
+    <string name="date1">2021-07-28</string>
+    <string name="date3">2021-05-14</string>
+    <string name="date2">2021-01-01</string>
+    <string name="description2">- Закончить курс</string>
+    <string name="label2">Планы на год</string>
+    <string name="label3">Покупки</string>
+    <string name="description3">- купить хлеб</string>
+</resources>
