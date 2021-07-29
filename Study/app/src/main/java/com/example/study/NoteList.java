@@ -1,20 +1,19 @@
 package com.example.study;
 
 
+import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
-import androidx.fragment.app.Fragment;
-
-import android.provider.ContactsContract;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
+import androidx.fragment.app.Fragment;
 
 import com.example.study.domain.Note;
 import com.example.study.domain.NotesRepository;
@@ -26,39 +25,36 @@ import java.util.List;
  * Use the {@link NoteList#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class NoteList extends Fragment {
+public class NoteList extends Fragment{
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    public interface OnNoteClicked {
+        void onNoteClicked(Note note);
+    }
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private OnNoteClicked onNoteClicked;
+
 
     public void Fragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment Note_List.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static NoteList newInstance(@Nullable String param1,@Nullable String param2) {
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+
+        if (context instanceof OnNoteClicked) {
+            onNoteClicked = (OnNoteClicked) context;
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        onNoteClicked = null;
+        super.onDetach();
+    }
+
+    public static NoteList newInstance() {
         NoteList fragment = new NoteList();
-
-        Bundle args = new Bundle();
-
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-
-        fragment.setArguments(args);
 
         return fragment;
     }
@@ -66,10 +62,6 @@ public class NoteList extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
@@ -79,29 +71,47 @@ public class NoteList extends Fragment {
         return inflater.inflate(R.layout.fragment_note_list, container, false);
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initList(view);
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
     private void initList(View view) {
 
         List<Note> notes = new NotesRepository().getNotes();
-        LinearLayout layoutView = (LinearLayout) view.findViewById(R.id.notes_list);
+        LinearLayout layoutView = view.findViewById(R.id.notes_list);
 
-        for(Note cur : notes){
-             View curView = LayoutInflater.from(getContext()).inflate(R.layout.note_item,layoutView,false);
+        for (Note cur : notes) {
+            View curView = LayoutInflater.from(getContext()).inflate(R.layout.note_item, layoutView, false);
 
-             TextView textView = curView.findViewById(R.id.item_label);
-             textView.setText(cur.getLabel());
+            TextView textView = curView.findViewById(R.id.item_label);
+            textView.setText(cur.getLabel());
 
-             TextView dateTextView = curView.findViewById(R.id.item_date);
-             dateTextView.setText(cur.getDate());
+            TextView dateTextView = curView.findViewById(R.id.item_date);
+            dateTextView.setText(cur.getDate());
+
+            curView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    openNoteDetails(cur);
+                }
+            });
 
             layoutView.addView(curView);
+        }
+    }
+
+    private void openNoteDetails(Note cur) {
+        if(getActivity() instanceof PublisherHolder){
+            PublisherHolder holder = (PublisherHolder) getActivity();
+
+            holder.getPublisher().notify(cur);
+        }
+
+        if (onNoteClicked != null) {
+            onNoteClicked.onNoteClicked(cur);
         }
     }
 }
