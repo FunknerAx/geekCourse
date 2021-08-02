@@ -13,4 +13,9 @@
     <string name="description3">- купить хлеб</string>
     <string name="settings">settings</string>
     <string name="add_note">add note</string>
+    <string name="change_note_more_action">change</string>
+    <string name="delete_note_more_action">delete</string>
+    <string name="project_name">Note</string>
+    <string name="project_version">1.0</string>
+    <string name="about">about</string>
 </resources>

@@ -1,23 +1,28 @@
 package com.example.study;
 
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
 import com.example.study.domain.Note;
 import com.example.study.domain.NotesRepository;
+import com.google.android.material.navigation.NavigationView;
 
 import java.util.List;
 
@@ -79,11 +84,24 @@ public class NoteList extends Fragment {
         initList(view);
 
         Toolbar toolbar = view.findViewById(R.id.toolbar);
+        NavigationView navigationView = view.findViewById(R.id.nav_bar);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(getActivity(),)
+
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                if(item.getItemId() == R.id.about_nav_view){
+                    Toast.makeText(getContext(),"About",Toast.LENGTH_SHORT).show();
+                    return true;
+                }
+                return false;
+            }
+        });
 
         toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-                if(item.getItemId() == R.id.settings){
+                if (item.getItemId() == R.id.settings) {
                     Toast.makeText(getContext(), "settings", Toast.LENGTH_SHORT).show();
                     return true;
                 }
@@ -94,9 +112,13 @@ public class NoteList extends Fragment {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getContext(),"nav",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "nav", Toast.LENGTH_SHORT).show();
+                navigationView.showContextMenu();
             }
         });
+
+
+
     }
 
     private void initList(View view) {
@@ -117,6 +139,32 @@ public class NoteList extends Fragment {
                 @Override
                 public void onClick(View v) {
                     openNoteDetails(cur);
+                }
+            });
+
+            ImageButton imageButton = curView.findViewById(R.id.button_more);
+
+
+            imageButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    PopupMenu popupMenu = new PopupMenu(getContext(), v);
+                    requireActivity().getMenuInflater().inflate(R.menu.popup_note_more, popupMenu.getMenu());
+
+                    popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                        @Override
+                        public boolean onMenuItemClick(MenuItem item) {
+                            if (item.getItemId() == R.id.change_note) {
+                                Toast.makeText(getContext(), "change note", Toast.LENGTH_SHORT).show();
+                                return true;
+                            }
+                            if (item.getItemId() == R.id.delete_note) {
+                                Toast.makeText(getContext(), "delete note", Toast.LENGTH_SHORT).show();
+                            }
+                            return false;
+                        }
+                    });
+                    popupMenu.show();
                 }
             });
 
