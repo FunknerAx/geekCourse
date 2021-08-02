@@ -2,17 +2,18 @@ package com.example.study;
 
 
 import android.content.Context;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
 import com.example.study.domain.Note;
@@ -25,7 +26,7 @@ import java.util.List;
  * Use the {@link NoteList#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class NoteList extends Fragment{
+public class NoteList extends Fragment {
 
     public interface OnNoteClicked {
         void onNoteClicked(Note note);
@@ -62,20 +63,40 @@ public class NoteList extends Fragment{
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        setHasOptionsMenu(false);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_note_list, container, false);
     }
-
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initList(view);
+
+        Toolbar toolbar = view.findViewById(R.id.toolbar);
+
+        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                if(item.getItemId() == R.id.settings){
+                    Toast.makeText(getContext(), "settings", Toast.LENGTH_SHORT).show();
+                    return true;
+                }
+                return false;
+            }
+        });
+
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getContext(),"nav",Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void initList(View view) {
@@ -104,7 +125,7 @@ public class NoteList extends Fragment{
     }
 
     private void openNoteDetails(Note cur) {
-        if(getActivity() instanceof PublisherHolder){
+        if (getActivity() instanceof PublisherHolder) {
             PublisherHolder holder = (PublisherHolder) getActivity();
 
             holder.getPublisher().notify(cur);
