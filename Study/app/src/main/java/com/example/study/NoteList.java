@@ -1,7 +1,6 @@
 package com.example.study;
 
 
-import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -18,6 +17,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 
 import com.example.study.domain.Note;
@@ -61,14 +62,12 @@ public class NoteList extends Fragment {
 
     public static NoteList newInstance() {
         NoteList fragment = new NoteList();
-
         return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setHasOptionsMenu(false);
     }
 
@@ -84,14 +83,20 @@ public class NoteList extends Fragment {
         initList(view);
 
         Toolbar toolbar = view.findViewById(R.id.toolbar);
+        DrawerLayout drawer = view.findViewById(R.id.drawer_list);
         NavigationView navigationView = view.findViewById(R.id.nav_bar);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(getActivity(),)
+
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(getActivity(), drawer, toolbar,
+                R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
 
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                if(item.getItemId() == R.id.about_nav_view){
-                    Toast.makeText(getContext(),"About",Toast.LENGTH_SHORT).show();
+                if (item.getItemId() == R.id.about_nav_view) {
+                    Toast.makeText(getContext(), "About", Toast.LENGTH_SHORT).show();
+                    drawer.closeDrawer(GravityCompat.START);
                     return true;
                 }
                 return false;
@@ -113,10 +118,9 @@ public class NoteList extends Fragment {
             @Override
             public void onClick(View v) {
                 Toast.makeText(getContext(), "nav", Toast.LENGTH_SHORT).show();
-                navigationView.showContextMenu();
+                drawer.openDrawer(GravityCompat.START);
             }
         });
-
 
 
     }

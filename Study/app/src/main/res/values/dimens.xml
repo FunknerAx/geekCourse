@@ -4,4 +4,5 @@
     <dimen name="sp12">12sp</dimen>
     <dimen name="sp18">18sp</dimen>
     <dimen name="sp36">36sp</dimen>
+    <dimen name="nav_header_height">200dp</dimen>
 </resources>
