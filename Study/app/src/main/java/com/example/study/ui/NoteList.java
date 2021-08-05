@@ -1,4 +1,4 @@
-package com.example.study;
+package com.example.study.ui;
 
 
 import android.content.Context;
@@ -20,11 +20,16 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.study.PublisherHolder;
+import com.example.study.R;
 import com.example.study.domain.Note;
 import com.example.study.domain.NotesRepository;
 import com.google.android.material.navigation.NavigationView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -80,8 +85,9 @@ public class NoteList extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        initList(view);
+        //initList(view);
 
+        RecyclerView recyclerView = view.findViewById(R.id.recycler_view_note_list);
         Toolbar toolbar = view.findViewById(R.id.toolbar);
         DrawerLayout drawer = view.findViewById(R.id.drawer_list);
         NavigationView navigationView = view.findViewById(R.id.nav_bar);
@@ -122,10 +128,25 @@ public class NoteList extends Fragment {
             }
         });
 
+        NotesAdapter adapter = new NotesAdapter();
+        if(savedInstanceState == null){
+            adapter.addData((ArrayList<Note>) new NotesRepository().getNotes());
+        }
+        LinearLayoutManager lm = new LinearLayoutManager(requireContext());
+
+        recyclerView.setLayoutManager(lm);
+        recyclerView.setAdapter(adapter);
+        adapter.setOnNoteClicked(new NotesAdapter.OnNoteClicked() {
+            @Override
+            public void onNoteClicked(View v, int position) {
+                Toast.makeText(getContext(),String.valueOf(position),Toast.LENGTH_SHORT).show();
+            }
+        });
+        adapter.notifyDataSetChanged();
 
     }
 
-    private void initList(View view) {
+    /*private void initList(View view) {
 
         List<Note> notes = new NotesRepository().getNotes();
         LinearLayout layoutView = view.findViewById(R.id.notes_list);
@@ -174,7 +195,7 @@ public class NoteList extends Fragment {
 
             layoutView.addView(curView);
         }
-    }
+    }*/
 
     private void openNoteDetails(Note cur) {
         if (getActivity() instanceof PublisherHolder) {

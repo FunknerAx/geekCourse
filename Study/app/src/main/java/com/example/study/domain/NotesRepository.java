@@ -11,6 +11,24 @@ public class NotesRepository {
         notes.add(new Note(R.string.label1,R.string.description1,R.string.date1));
         notes.add(new Note(R.string.label2,R.string.description2,R.string.date2));
         notes.add(new Note(R.string.label3,R.string.description3,R.string.date3));
+        notes.add(new Note(R.string.label3,R.string.description3,R.string.date3));
+        notes.add(new Note(R.string.label3,R.string.description3,R.string.date3));
+        notes.add(new Note(R.string.label3,R.string.description3,R.string.date3));
+        notes.add(new Note(R.string.label3,R.string.description3,R.string.date3));
+        notes.add(new Note(R.string.label3,R.string.description3,R.string.date3));
+        notes.add(new Note(R.string.label3,R.string.description3,R.string.date3));
+        notes.add(new Note(R.string.label3,R.string.description3,R.string.date3));
+        notes.add(new Note(R.string.label3,R.string.description3,R.string.date3));
+        notes.add(new Note(R.string.label3,R.string.description3,R.string.date3));
+        notes.add(new Note(R.string.label3,R.string.description3,R.string.date3));
+        notes.add(new Note(R.string.label3,R.string.description3,R.string.date3));
+        notes.add(new Note(R.string.label3,R.string.description3,R.string.date3));
+        notes.add(new Note(R.string.label3,R.string.description3,R.string.date3));
+        notes.add(new Note(R.string.label3,R.string.description3,R.string.date3));
+        notes.add(new Note(R.string.label3,R.string.description3,R.string.date3));
+        notes.add(new Note(R.string.label3,R.string.description3,R.string.date3));
+        notes.add(new Note(R.string.label3,R.string.description3,R.string.date3));
+        notes.add(new Note(R.string.label3,R.string.description3,R.string.date3));
         return  notes;
     }
 }

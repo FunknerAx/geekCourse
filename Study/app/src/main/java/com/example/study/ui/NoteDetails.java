@@ -1,4 +1,4 @@
-package com.example.study;
+package com.example.study.ui;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -11,6 +11,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.example.study.Publisher;
+import com.example.study.PublisherHolder;
+import com.example.study.R;
+import com.example.study.Subscriber;
 import com.example.study.domain.Note;
 
 /**

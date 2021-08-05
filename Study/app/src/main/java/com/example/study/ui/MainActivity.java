@@ -1,16 +1,16 @@
-package com.example.study;
+package com.example.study.ui;
 
 import android.os.Bundle;
-import android.os.PersistableBundle;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
+import com.example.study.Publisher;
+import com.example.study.PublisherHolder;
+import com.example.study.R;
 import com.example.study.domain.Note;
-
-import java.util.concurrent.Flow;
 
 public class MainActivity extends AppCompatActivity implements NoteList.OnNoteClicked, PublisherHolder {
 
