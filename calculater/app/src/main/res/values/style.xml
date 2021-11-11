@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="button_numbers">
+        <item name="android:layout_width">@dimen/width_button_numbers</item>
+        <item name="android:layout_height">@dimen/height_button_numbers</item>
+        <item name="android:textSize">@dimen/text_size</item>
+        <item name="android:layout_margin">@dimen/button_margin</item>
+    </style>
+
+    <dimen name="width_button_numbers">50dp</dimen>
+    <dimen name="height_button_numbers">50dp</dimen>
+    <dimen name="text_size">15sp</dimen>
+    <dimen name="button_margin">4dp</dimen>
+</resources>
