@@ -33,7 +33,7 @@ class CalculaterLogics : Calculators {
                 }
             }
 
-            get(numbers,operators)
+            result = get(numbers,operators)
 
         } else {
             result = numbers[0]
