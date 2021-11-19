@@ -3,12 +3,22 @@
     <style name="button_numbers">
         <item name="android:layout_width">@dimen/width_button_numbers</item>
         <item name="android:layout_height">@dimen/height_button_numbers</item>
-        <item name="android:textSize">@dimen/text_size</item>
+        <item name="android:textSize">@dimen/button_text_size</item>
         <item name="android:layout_margin">@dimen/button_margin</item>
+    </style>
+
+    <style name="button_operators">
+        <item name="android:layout_width">@dimen/width_button_numbers</item>
+        <item name="android:layout_height">@dimen/height_button_numbers</item>
+        <item name="android:textSize">@dimen/button_text_size</item>
+        <item name="android:layout_margin">@dimen/button_margin</item>
+        <item name="backgroundTint">@color/design_default_color_secondary</item>
+        <item name="android:textColor">@color/black</item>
     </style>
 
     <dimen name="width_button_numbers">50dp</dimen>
     <dimen name="height_button_numbers">50dp</dimen>
     <dimen name="text_size">15sp</dimen>
     <dimen name="button_margin">4dp</dimen>
+    <dimen name="button_text_size">15sp</dimen>
 </resources>
