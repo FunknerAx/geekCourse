@@ -37,4 +37,18 @@ class CalculaterModel{
 
     }
 
+    fun clear() {
+        numbers.clear()
+        operators.clear()
+        lastNumber = ""
+    }
+
+    fun checkZeroDiv(value: Double): Boolean {
+        return if(operators.size > 0){
+            !(operators[operators.size-1] == Operators.DIV && value.toInt() == 0)
+        } else{
+            true
+        }
+    }
+
 }
