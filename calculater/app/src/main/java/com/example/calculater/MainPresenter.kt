@@ -9,8 +9,12 @@ class MainPresenter(val mainActivity: MainInterface) {
     }
     
     fun addNumber(value: Double) {
-        calculater.addNumber(value)
-        mainActivity.updateDisplay(value.toInt().toString())
+        if(calculater.checkZeroDiv(value)){
+            calculater.addNumber(value)
+            mainActivity.updateDisplay(value.toInt().toString())
+        } else {
+            mainActivity.showException("Нельзя делить на 0")
+        }
 
     }
     
@@ -22,6 +26,10 @@ class MainPresenter(val mainActivity: MainInterface) {
         }
     }
 
+    fun clearAll() {
+        calculater.clear()
+        mainActivity.updateDisplay("clear")
+    }
 
 
 }

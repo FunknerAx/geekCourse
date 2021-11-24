@@ -1,5 +1,7 @@
 package com.example.calculater
 
+import android.annotation.SuppressLint
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -46,6 +48,9 @@ class MainActivity : AppCompatActivity(), MainInterface {
         binding.buttonNine.setOnClickListener {
             presenter.addNumber(binding.buttonNine.text.toString().toDouble())
         }
+        binding.buttonZero.setOnClickListener {
+            presenter.addNumber(binding.buttonZero.text.toString().toDouble())
+        }
 
         binding.buttonSum.setOnClickListener {
             presenter.addAction(Operators.SUM)
@@ -64,6 +69,16 @@ class MainActivity : AppCompatActivity(), MainInterface {
             presenter.getResult()
         }
 
+        binding.settings.setOnClickListener {
+            val settings = Intent(this,Settings::class.java)
+            startActivity(settings)
+        }
+
+        binding.buttonCa.setOnClickListener{
+            presenter.clearAll()
+
+        }
+
     }
 
     override fun showResult(value: Double) {
@@ -75,6 +90,14 @@ class MainActivity : AppCompatActivity(), MainInterface {
     }
 
     override fun updateDisplay(value: String) {
-        binding.mainView.text = binding.mainView.text.toString() + value
+        if(value == "clear" ){
+            binding.mainView.text = "0"
+        } else {
+            if(binding.mainView.text.startsWith('0')){
+                binding.mainView.text = value
+            }else{
+                binding.mainView.text = binding.mainView.text.toString() + value
+            }
+        }
     }
 }

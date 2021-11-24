@@ -6,4 +6,6 @@
     <dimen name="wrapper_margin_top">150dp</dimen>
     <dimen name="wrapper_margin_start">80dp</dimen>
     <dimen name="wrapper_margin_end">80dp</dimen>
+    <dimen name="_8dp">8dp</dimen>
+    <dimen name="_20sp">20sp</dimen>
 </resources>
